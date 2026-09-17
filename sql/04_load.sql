@@ -104,3 +104,8 @@ FROM stg_all WHERE b365_close_h > 1 AND b365_close_d > 1 AND b365_close_a > 1;
 
 DELETE FROM odds
 WHERE 1/odds_home + 1/odds_draw + 1/odds_away NOT BETWEEN 1.0 AND 1.25;
+
+INSERT INTO cities
+SELECT replace(TRIM(city), ' ', '_') || '_' || TRIM(iso2), TRIM(city), TRIM(iso2),
+       CAST(latitude AS DOUBLE), CAST(longitude AS DOUBLE), TRY_CAST(elevation_m AS INTEGER)
+FROM read_csv('ref_cities_coords.csv', header = true, all_varchar = true);
