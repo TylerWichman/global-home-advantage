@@ -58,3 +58,13 @@ CREATE TABLE odds (
     odds_away DOUBLE CHECK (odds_away > 1),
     PRIMARY KEY (match_id, bookmaker)
 );
+    CREATE TABLE cities (
+    city_id     VARCHAR PRIMARY KEY,      -- e.g. 'Toronto_CA'
+    city_name   VARCHAR NOT NULL,
+    country     VARCHAR NOT NULL,         -- ISO2 of the city itself, not the league
+    latitude    DOUBLE NOT NULL CHECK (latitude BETWEEN -90 AND 90),
+    longitude   DOUBLE NOT NULL CHECK (longitude BETWEEN -180 AND 180),
+    elevation_m INTEGER CHECK (elevation_m BETWEEN -100 AND 6000),
+    UNIQUE (city_name, country)
+
+);
